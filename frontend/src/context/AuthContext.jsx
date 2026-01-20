@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         const loadUser = async () => {
             if (token) {
                 try {
-                    const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/user`);
+                    const res = await axios.get(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/auth/user`);
                     setUser(res.data);
                 } catch (err) {
                     console.error(err);
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/login`, { email, password });
+            const res = await axios.post(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/auth/login`, { email, password });
             localStorage.setItem('token', res.data.token);
             setToken(res.data.token);
             setUser(res.data.user);
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
     const register = async (name, email, password) => {
         try {
-            const res = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/register`, { name, email, password });
+            const res = await axios.post(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/auth/register`, { name, email, password });
             localStorage.setItem('token', res.data.token);
             setToken(res.data.token);
             setUser(res.data.user);

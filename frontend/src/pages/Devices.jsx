@@ -21,7 +21,7 @@ const Devices = () => {
 
     const fetchDevices = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/devices`);
+            const res = await axios.get(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/devices`);
             setDevices(res.data);
         } catch (err) {
             console.error(err);
@@ -30,7 +30,7 @@ const Devices = () => {
 
     const fetchBabies = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/babies`);
+            const res = await axios.get(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/babies`);
             setBabies(res.data);
             if (res.data.length > 0) setSelectedBabyId(res.data[0]._id);
         } catch (err) {
@@ -41,7 +41,7 @@ const Devices = () => {
     const handleAddBaby = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/babies`, {
+            await axios.post(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/babies`, {
                 name: babyName,
                 ageMonths: babyAge
             });
@@ -57,7 +57,7 @@ const Devices = () => {
     const handlePair = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/devices/pair`, {
+            await axios.post(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/devices/pair`, {
                 deviceId: newDeviceId,
                 babyId: selectedBabyId
             });

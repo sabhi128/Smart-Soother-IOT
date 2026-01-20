@@ -45,7 +45,7 @@ const Dashboard = () => {
 
     const fetchDevices = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/devices`);
+            const res = await axios.get(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/devices`);
             setDevices(res.data);
             if (res.data.length > 0) {
                 const connected = res.data.find(d => d.status === 'connected');
@@ -58,7 +58,7 @@ const Dashboard = () => {
 
     const fetchHistory = async (id) => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/readings/${id}`);
+            const res = await axios.get(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/readings/${id}`);
             setHistory(res.data.reverse());
             if (res.data.length > 0) setLiveData(res.data[0]);
         } catch (err) {
@@ -68,7 +68,7 @@ const Dashboard = () => {
 
     const fetchAlerts = async (id) => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/readings/alerts/${id}`);
+            const res = await axios.get(`${import.meta.env.PROD ? '' : 'http://localhost:5000'}/api/readings/alerts/${id}`);
             setAlerts(res.data);
         } catch (err) {
             console.error(err);
